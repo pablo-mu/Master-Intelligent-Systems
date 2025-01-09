@@ -1,0 +1,9 @@
+import numpy
+
+def make_ext(modname, pyxfilename):
+    from distutils.extension import Extension
+    return Extension(name='tiled_gemm',
+                     sources=['tiled_gemm.pyx'],
+                     include_dirs = [numpy.get_include()],
+                     extra_compile_args=['-fopenmp', '-O3', '-march=native'],
+	             extra_link_args=['-fopenmp'])

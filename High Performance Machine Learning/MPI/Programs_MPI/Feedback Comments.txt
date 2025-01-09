@@ -1,0 +1,25 @@
+ In exercise 2, it is not a good idea to use label 0 (Doubt of originality).
+
+* In exercise 2, process 0 receives the messages in order, when the use of MPI_ANY_SOURCE allows it to receive them in any order.
+
+* In exercise 2, only process 0 should calculate the last product.
+
+* In exercise 3, only process 0 should calculate the last product.
+
+* In exercise 4, it is more appropriate to use MPI_Send than MPI_Ssend.
+
+* In exercise 4, process 0 receives the messages in order, when the use of MPI_ANY_SOURCE allows it to receive them in any order.
+
+* In exercise 5, the vector v with the two integers had to be sent.
+
+* In exercise 5, it is an error to use MPI_Scatter to send a copy of an element.
+
+* In exercise 6, each process had to receive NL columns from process 0.
+
+* In exercise 6, _B types had to be used instead of _A types.
+
+* In exercise 6, the local calculation is not correct, it had to be made of M rows and NL columns.
+
+* In exercise 6, the communication made replaces the local calculation made.
+
+* In exercise 6, the communication to add up the local yG is missing, obtaining yL distributed.

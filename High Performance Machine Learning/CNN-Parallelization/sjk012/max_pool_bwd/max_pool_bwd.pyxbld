@@ -1,0 +1,11 @@
+
+def make_ext(modname, pyxfilename):
+    from distutils.extension import Extension
+    import numpy
+    ext = Extension(name='max_pool_bwd',
+                    sources=['max_pool_bwd.pyx'],
+                    include_dirs = [numpy.get_include()],
+                    extra_compile_args=['-fopenmp', '-lgomp', '-O3', '-march=native', '-DNPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION'],
+                    extra_link_args=['-fopenmp'])
+    ext.cython_directives = {'language_level': '3'}
+    return ext

@@ -1,0 +1,11 @@
+
+* The last product per step should only be performed once outside the loop.
+
+* In the pi_par_critical exercises, only the accumulation inside the critical should appear.
+
+* In the pi_par_reduction_b exercise, the reduction clause should appear when creating the parallel region.
+
+* In the pi_par_atomic exercises, only the accumulation within the critical should appear.
+
+* In the pi_par_reduction_b exercise, there was no need to include an atomic.
+

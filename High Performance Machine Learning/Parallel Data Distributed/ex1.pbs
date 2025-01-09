@@ -1,0 +1,56 @@
+#!/bin/bash
+#PBS -N out1
+#PBS -q bi
+#PBS -l nodes=1:ppn=1
+
+# Changing Working Directory
+cd $PBS_O_WORKDIR
+
+# Header Information
+echo Running on master host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo Procsfile: $PBS_NODEFILE
+echo This jobs runs on the following processors:
+echo `cat $PBS_NODEFILE`
+
+# Define number of processors
+NPROCS=`wc -l < $PBS_NODEFILE`
+
+# Generate a unique list of nodes
+sort -u $PBS_NODEFILE > unique_nodes.txt
+
+# Define number of nodes
+NNODES=`wc -l < unique_nodes.txt`
+
+# Printing information
+echo Nodesfile: unique_nodes.txt
+echo This jobs runs on the following nodes:
+echo `cat unique_nodes.txt`
+echo This job has allocated $NPROCS cores on $NNODES nodes
+
+# MPI settings
+PATH=/opt/mpich2/gnu/bin:/usr/sbin/:$PATH
+MPICC_ET=mpicc
+MPIRUN_FA="mpirun"
+MPIOPT_ET="--machinefile unique_nodes.txt"
+
+MPICC=$MPICC_ET
+MPIRUN=$MPIRUN_FA
+MPIOPT=$MPIOPT_ET
+echo "MPICC=$MPICC"
+echo "MPIRUN=$MPIRUN"
+echo "MPIOPT=$MPIOPT"
+
+# Activate the Python virtual environment
+source ~/optb/pyvenv311/bin/activate
+
+# Ensure the script is executable
+chmod +x ./neural_network_module_parallel.py
+
+# Run the parallel MPI job
+$MPIRUN -np $NPROCS $MPIOPT ./neural_network_module_parallel.py
+
+# Clean up
+rm unique_nodes.txt
+
